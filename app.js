@@ -1,76 +1,85 @@
 'use strict';
+
 //variables to store the objects
-var results = document.getElementById('results');
-var imagesDisplayed = document.getElementById('images_displayed');
+var results = document.getElementById('results'); //Access results for listEl
+var imagesDisplayed = document.getElementById('images_displayed'); //Access images displayed for listEl
 var imgLeft = document.getElementById('left');
 var imgCenter = document.getElementById('center');
 var imgRight = document.getElementById('right');
-var indexOne = 0;
-var indexTwo = 0;
-var indexThree = 0;
 var imgVote = 0;
-var productCatalog = []; //array to store all products
-var previousNumbers = []; //stores previousNumbers passed through array
+var productCatalog = [];
+var previousNumbers = []; //stores previous randomly generated numbers
 
 //make an object
 var Product = function(image, filePath) {
   this.image = image;
   this.filePath = filePath;
-  this.totalDisplayed = 0;
-  this.totalClicks = 0;
-  productCatalog.push(this);
+  this.totalDisplayed = 0; //Set total images displayed to zero
+  this.totalClicks = 0; //Set total image clicks to zero
+  productCatalog.push(this); //Push newly constructed object to productCatalog array
 };
 
-//make new image instances - use constructor function (make object first, then instances of using the constructor)
-new Product('Bag', 'img/bag.jpg');
-new Product('Banana', 'img/banana.jpg');
-new Product('Bathroom', 'img/bathroom.jpg');
-new Product('Boots', 'img/boots.jpg');
-new Product('Breakfast', 'img/breakfast.jpg');
-new Product('Bubble Gum', 'img/bubblegum.jpg');
-new Product('Chair', 'img/chair.jpg');
-new Product('Cthulhu', 'img/cthulhu.jpg');
-new Product('Dog Duck', 'img/dog-duck.jpg');
-new Product('Dragon', 'img/dragon.jpg');
-new Product('Pen', 'img/pen.jpg');
-new Product('Pet Sweep', 'img/pet-sweep.jpg');
-new Product('Scissors', 'img/scissors.jpg');
-new Product('Shark', 'img/shark.jpg');
-new Product('Sweep', 'img/sweep.png');
-new Product('Tauntaun', 'img/tauntaun.jpg');
-new Product('Unicorn', 'img/unicorn.jpg');
-new Product('USB', 'img/usb.gif');
-new Product('Water Can', 'img/water-can.jpg');
-new Product('Wine Glass', 'img/wine-glass.jpg');
+//New image instances - use constructor function
+new Product('Bag', 'images/bag.jpg');
+new Product('Banana', 'images/banana.jpg');
+new Product('Bathroom', 'images/bathroom.jpg');
+new Product('Boots', 'images/boots.jpg');
+new Product('Breakfast', 'images/breakfast.jpg');
+new Product('Bubble Gum', 'images/bubblegum.jpg');
+new Product('Chair', 'images/chair.jpg');
+new Product('Cthulhu', 'images/cthulhu.jpg');
+new Product('Dog Duck', 'images/dog-duck.jpg');
+new Product('Dragon', 'images/dragon.jpg');
+new Product('Pen', 'images/pen.jpg');
+new Product('Pet Sweep', 'images/pet-sweep.jpg');
+new Product('Scissors', 'images/scissors.jpg');
+new Product('Shark', 'images/shark.jpg');
+new Product('Sweep', 'images/sweep.png');
+new Product('Tauntaun', 'images/tauntaun.jpg');
+new Product('Unicorn', 'images/unicorn.jpg');
+new Product('USB', 'images/usb.gif');
+new Product('Water Can', 'images/water-can.jpg');
+new Product('Wine Glass', 'images/wine-glass.jpg');
 
-//randomly display one of the images for each image index
-function randomImage() {
-  indexOne = Math.floor(Math.random() * productCatalog.length);
-  while (indexOne === indexTwo || indexOne === indexThree || previousNumbers.includes(indexOne) {
-  indexTwo = Math.floor(Math.random() * productCatalog.length);
-    }
-  while (indexTwo === indexOne || indexTwo === indexThree || previousNumbers.includes(indexTwo) {
-  indexTwo = Math.floor(Math.random() * productCatalog.length);
-    }
-  indexThree = Math.floor(Math.random() * productCatalog.length);
-  while (indexThree === indexTwo || indexThree === indexOne || previousNumbers.includes(indexThree) {
-  indexThree = Math.floor(Math.random() * productCatalog.length);
-    }
-  console.log(indexOne, indexTwo, indexThree);
+var indexOne;
+var indexTwo;
+var indexThree;
 
-  imgLeft.src = productCatalog[indexOne].filePath;
-  imgLeft.alt = productCatalog[indexOne].image;
-  imgCenter.src = productCatalog[indexTwo].filePath;
-  imgCenter.src = productCatalog[indexTwo].image;
-  imgRight.src = productCatalog[indexThree].filePath;
-  imgRight.src = productCatalog[indexThree].filePath;
+function rando() {
+  return Math.floor(Math.random() * productCatalog.length);
+}
 
-  productCatalog[indexOne].totalDisplayed += productCatalog[indexOne].totalDisplayed;
-  productCatalog[indexTwo].totalDisplayed += productCatalog[indexTwo].totalDisplayed;
-  productCatalog[indexThree].totalDisplayed += productCatalog[indexThree].totalDisplayed;
-  });
+//Randomly display one image for each image index
+function randomImages() {
+  indexOne = rando();
+  while (indexOne === indexTwo || indexOne === indexThree || previousNumbers.includes(indexOne)) {
+    indexOne = rando();
+  }
+  indexTwo = rando();
+  while (indexTwo === indexOne || indexTwo === indexThree || previousNumbers.includes(indexTwo)) {
+    indexTwo = rando();
+  }
+  indexThree = rando();
+  while (indexThree === indexTwo || indexThree === indexOne || previousNumbers.includes(indexThree)) {
+    indexThree = rando();
+  }
+}
+randomImages();
 
-function imgVotes() {
+// console.log(indexOne, indexTwo, indexThree);
+console.log(indexOne, productCatalog[indexOne]);
+imgLeft.src = productCatalog[indexOne].filePath;
+imgLeft.alt = productCatalog[indexOne].image;
+imgCenter.src = productCatalog[indexTwo].filePath;
+imgCenter.alt = productCatalog[indexTwo].image;
+imgRight.src = productCatalog[indexThree].filePath;
+imgRight.alt = productCatalog[indexThree].image;
+
+productCatalog[indexOne].totalDisplayed ++;
+productCatalog[indexTwo].totalDisplayed ++;
+productCatalog[indexThree].totalDisplayed ++;
+
+function imgVote() {
   for (var i = 0; i < productCatalog.length; i ++) {
     var listEl = document.createElement('li');
     listEl.textContent = productCatalog[i].image + ' appeared on screen ' + productCatalog[i].totalDisplayed + ' times, and was clicked ' + productCatalog[i].totalClicks + ' times.';
@@ -78,35 +87,43 @@ function imgVotes() {
   }
 }
 
-function userChoices() {
+function userChoices(event) {
   var userSelect = event.target.id;
   console.log(userSelect);
   if (userSelect === 'left') {
-    console.log('User chose left image');
-    imgVote += 1;
+    console.log('User chose the left image');
+    imgVote ++;
     console.log('On round: ' + (parseInt(imgVote) + 1));
     productCatalog[indexOne].totalClicks += 1;
     console.log(productCatalog[indexOne].image + ' selected ' + productCatalog[indexOne].totalClicks + ' times');
   }
   else if (userSelect === 'center') {
-    console.log('User chose center image');
-    imgVote += 1;
+    console.log('User chose the center image');
+    imgVote ++;
     console.log('On round: ' + (parseInt(imgVote) + 1));
     productCatalog[indexTwo].totalClicks += 1;
     console.log(productCatalog[indexTwo].image + ' selected ' + productCatalog[indexTwo].totalClicks + ' times');
   }
   else if (userSelect === 'right') {
-    console.log('User chose right image');
-    imgVote += 1;
+    console.log('User chose the right image');
+    imgVote ++;
     console.log('On round: ' + (parseInt(imgVote) + 1));
     productCatalog[indexThree].totalClicks += 1;
     console.log(productCatalog[indexThree].image + ' selected ' + productCatalog[indexThree].totalClicks + ' times');
   }
+  else {
+    alert('Please select one of the three images');
+  }
+  if (imgVote < 25){
+    console.log(imgVote, 'total votes');
+  }
 }
+randomImages();
 
+//Clear previous images from screen display
+function clearWindow() {
+  document.getElementById('images_displayed').innerHTML = '';
+};
 
-        //
-        // //listener, something to be clicked...events!
-        // var imgEl = document.getElementById('Product-img');
-        // 
-        // imgEl.addEventListener('click', randomImage);
+imagesDisplayed.addEventListener('click', clearWindow);
+imagesDisplayed.addEventListener('click', userChoices);
