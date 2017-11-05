@@ -1,12 +1,12 @@
 'use strict';
 var allImages = [];
 
-// if (localStorage.getItem('storeData')) {
-//   allImages = [];
-//   allImages = JSON.parse(localStorage.getItem('storeData'));
-// } else {
-//   makeImgObj();
-// };
+if (localStorage.getItem('storeData')) {
+  allImages = [];
+  allImages = JSON.parse(localStorage.getItem('storeData'));
+} else {
+  makeImgObj();
+};
 
 var imgContain = document.getElementById('imgContain');
 var info = document.getElementById('info');
@@ -15,6 +15,7 @@ var startButton = document.getElementById('startButton');
 var left = document.getElementById('left');
 var center = document.getElementById('center');
 var right = document.getElementById('right');
+var clearLS = document.getElementById('clearStorage');
 var leftImg;
 var centerImg;
 var rightImg;
@@ -55,8 +56,12 @@ function makeImgObj(imgname, fname) {
   new MakeImages('Water Can', 'images/water-can.jpg');
   new MakeImages('Wine Glass', 'images/wine-glass.jpg');
 };
-makeImgObj();
 
+function storeClicks() {
+  console.log('click storage');
+  var productStringified = JSON.stringify(allImages);
+  localStorage.getItem('storeData', productStringified);
+}
 //pick 3 numbers at a time function
 function pick3() {
   //validates unique numbers, then writes img src path to DOM
@@ -87,9 +92,9 @@ function handleImgClick(event) {
     imgContain.removeEventListener('click', handleImgClick);
     updateChartArrays();
     drawChart();
-    // var allImagesString = JSON.stringify(allImages);
-    // localStorage.storeData = allImagesString;
-    // return;
+    var allImagesString = JSON.stringify(allImages);
+    localStorage.storeData = allImagesString;
+    return;
   }
   if (event.target.id === 'left') {
     allImages[leftImg].clicked += 1;
@@ -117,7 +122,10 @@ function handleImgClick(event) {
 
 startButton.addEventListener('click', handleImgClick);
 
-//clearStorage.addEventListener('click', handleImgClick);
+// clearLS.addEventListener('click', handleImgClick() {
+//   console.log('localStorage is cleared');
+//   localStorage.clear();
+// });
 
 //Chart function
 function hideChart() {
@@ -186,81 +194,6 @@ function drawChart() {
     }
   });
 }
-
 //event listener for an image clicked
 imgContain.addEventListener('click', handleImgClick);
 pick3();
-/************/
-
-// for (var i = 0; i < Product.names.length; i++) {
-//   new Product(Products.names[i]);
-// }
-// function makeRandom() {
-//   return Math.floor(Math.random() * Product.names.length);
-// }
-// function displayPics() {
-//   //make left image unique
-//   currentlyShowing[0] = makeRandom();
-//   while (Product.justViewed.indexOf(currentlyShowing[0]) !== -1) {
-//     console.error('Duplicate, or in prior view! Re run!');
-//     currentlyShowing[0] = makeRandom();
-//   }
-//   //make center image unique
-//   currentlyShowing[1] = makeRandom();
-//   while (currentlyShowing[0] === currentlyShowing[1] ||
-//   Product.justViewed.indexOf(currentlyShowing[1]) !== -1) {
-//     console.error('Duplicate at center, or in prior view! Re run!');
-//     currentlyShowing[1] = makeRandom();
-//   }
-//   //make right image unique
-//   currentlyShowing[2] = makeRandom();
-//   while (Product.justViewed.indexOf(currentlyShowing[2]) !== -1) {
-//     console.error('Duplicate in right image! Re run!');
-//     currentlyShowing[2] = makeRandom();
-//   }
-//   //take info to the DOM
-//   for (var i = 0; i < 3; i++) {
-//     Product.pics[i].src = Product.all(currentlyShowing[i]).path;
-//     Product.pics[i].id = Product.all(currentlyShowing[i]).image;
-//     Product.all(currentlyShowing[i]).views += 1;
-//     Product.justViewed[i] = currentlyShowing[i];
-//   }
-// }
-// //handle click events
-// function handleClick(event) {
-//   console.log(Product.totalClicks, 'total clicks');
-//   if (Product.totalClicks > 24) {
-//     Product.container.removeEventListener('click', handleClick);
-//     showTally();
-//   }
-//   if (event.target.id === 'image_container') {
-//     return alert('Nope, you need to click on an image.');
-//   }
-//   Product.totalClicks += 1;
-//   for (var i = 0; i < Product.names.length; i++) {
-//     if(event.target.id === Product.all[i].name) {
-//       Product.all[i].votes += 1;
-//       console.log(event.target.id + 'has' + Product.all[i].votes + 'votes in' + Prodcut.all[i].views + 'views');
-//     }
-//   }
-//   displayPics();
-// }
-// //show tally using list in DOM
-// function showTally() {
-//   for (var i = 0; i < Product.all.length; i++) {
-//     var listEl = document.createElement('li');
-//     liEl.textContent = Product.all[i].name + 'has' + Product.all[i].votes + 'votes in' + Product.all[i].views + 'views';
-//     Product.tally.appendChild(liEl);
-//   }
-// }
-// //event listener
-// Products.container.addEventListener('click', handleClick);
-// displayPics();
-//
-// function imgVote() {
-//   for (var i = 0; i < MakeImages.length; i ++) {
-//     var listEl = document.createElement('li');
-//     listEl.textContent = MakeImages[i].imgname + ' appeared on screen ' + MakeImages[i].shown + ' times, and was clicked ' + MakeImages[i].clicked + ' times.';
-//     results.appendChild(listEl);
-//   }
-// }
