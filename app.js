@@ -13,7 +13,6 @@ var info = document.getElementById('info');
 var results = document.getElementById('myList');
 var startButton = document.getElementById('startButton');
 var left = document.getElementById('left');
-console.log('left', left);
 var center = document.getElementById('center');
 var right = document.getElementById('right');
 var leftImg;
@@ -23,22 +22,6 @@ var counter = 0;
 var votes = [];
 var imgIds = [];
 var previousNumbers = [];
-
-// var results = document.getElementById('results_chart'); //Access results for listEl
-// var imagesDisplayed = document.getElementById('images_displayed'); //Access images displayed for listEl
-// var imgLeft = document.getElementById('left');
-// var imgCenter = document.getElementById('center');
-// var imgRight = document.getElementById('right');
-// var indexOne = 0;
-// var indexTwo = 0;
-// var indexThree = 0;
-// var imgVote = 0;
-// var productCatalog = [];
-// var indexSave = [];
-// var selectedProducts = [];
-// var productNames = [];
-// var finalProductIndex = [];
-// var previousNumbers = []; //stores previous randomly generated numbers
 
 //constructor function for making image objects
 function MakeImages (imgname, fname) {
@@ -73,6 +56,7 @@ function makeImgObj(imgname, fname) {
   new MakeImages('Wine Glass', 'images/wine-glass.jpg');
 };
 makeImgObj();
+
 //pick 3 numbers at a time function
 function pick3() {
   //validates unique numbers, then writes img src path to DOM
@@ -97,26 +81,15 @@ function pick3() {
 }
 pick3();
 
-function imgVote() {
-  for (var i = 0; i < allImages.length; i ++) {
-    var listEl = document.createElement('li');
-    listEl.textContent = allImages[i].imgname + ' appeared on screen ' + allImages[i].shown + ' times, and was clicked ' + allImages[i].clicked + ' times.';
-    results.appendChild(listEl);
-  }
-}
-
 //This function is the event handler for an image click
 function handleImgClick(event) {
   if (counter === 25) {
     imgContain.removeEventListener('click', handleImgClick);
-    imgVote();
-    // updateChartArrays();
-    // drawChart();
-  //   var allImagesString = JSON.stringify(allImages);
-  //   localStorage.setItem('storeData', allImagesString);
-  //   return;
-  // } else {
-  //   hideChart();
+    updateChartArrays();
+    drawChart();
+    // var allImagesString = JSON.stringify(allImages);
+    // localStorage.storeData = allImagesString;
+    // return;
   }
   if (event.target.id === 'left') {
     allImages[leftImg].clicked += 1;
@@ -147,72 +120,72 @@ startButton.addEventListener('click', handleImgClick);
 //clearStorage.addEventListener('click', handleImgClick);
 
 //Chart function
-// function hideChart() {
-//   document.getElementById('barChart').hidden = true;
-// }
-//
-// function updateChartArrays() {
-//   for (var i = 0; i < allImages.length; i++) {
-//     imgIds[i] = allImages[i].imgname;
-//     votes[i] = allImages[i].clicked;
-//   }
-// }
-//
-// var data = {
-//   labels: imgIds,
-//   datasets: [
-//     {
-//       label: 'Your Choices',
-//       data: votes,
-//       backgroundColor: [
-//         'rgba(230,25,75)',
-//         'rgba(60,180,75)',
-//         'rgba(255,225,25)',
-//         'rgba(0,130,200)',
-//         'rgba(245,130,48)',
-//         'rgba(145,30,180)',
-//         'rgba(70,240,240)',
-//         'rgba(240,50,230)',
-//         'rgba(210,245,60)',
-//         'rgba(250,190,190)',
-//         'rgba(0,128,128)',
-//         'rgba(230,190,255)',
-//         'rgba(170,110,40)',
-//         'rgba(255,250, 200)',
-//         'rgba(128,0,0)',
-//         'rgba(170,255,195)',
-//         'rgba(128,128,0)',
-//         'rgba(255,215,180)',
-//         'rgba(0,0,128)',
-//         'rgba(128,128,128)',
-//         'rgba(255,255,255)',
-//         'rgba(0,0,0)',
-//       ]
-//     }]
-// };
-//
-// function drawChart() {
-//   var ctx = document.getElementsById('barChart').getContext('2d');
-//
-//   var barChart = new Chart(ctx,{
-//     type: 'bar',
-//     //width: 300,
-//     data: data,
-//     options: {
-//       responsive: false,
-//       scales: {
-//         yAxes: [{
-//           xAxes: [{
-//             ticks: {
-//               stepSize: 1,
-//               beginAtZero: true,
-//             }
-//           }]
-//         }]
-//       }
-//     }
-//   });
-// }
+function hideChart() {
+  document.getElementById('barChart').hidden = true;
+}
+
+function updateChartArrays() {
+  for (var i = 0; i < allImages.length; i++) {
+    imgIds[i] = allImages[i].imgname;
+    votes[i] = allImages[i].clicked;
+  }
+}
+
+var data = {
+  labels: imgIds,
+  datasets: [
+    {
+      label: 'Your Choices',
+      data: votes,
+      backgroundColor: [
+        'rgba(230,25,75)',
+        'rgba(60,180,75)',
+        'rgba(255,225,25)',
+        'rgba(0,130,200)',
+        'rgba(245,130,48)',
+        'rgba(145,30,180)',
+        'rgba(70,240,240)',
+        'rgba(240,50,230)',
+        'rgba(210,245,60)',
+        'rgba(250,190,190)',
+        'rgba(0,128,128)',
+        'rgba(230,190,255)',
+        'rgba(170,110,40)',
+        'rgba(255,250, 200)',
+        'rgba(128,0,0)',
+        'rgba(170,255,195)',
+        'rgba(128,128,0)',
+        'rgba(255,215,180)',
+        'rgba(0,0,128)',
+        'rgba(128,128,128)',
+        'rgba(255,255,255)',
+        'rgba(0,0,0)',
+      ]
+    }]
+};
+
+function drawChart() {
+  var ctx = document.getElementById('barChart').getContext('2d');
+
+  var barChart = new Chart(ctx,{
+    type: 'bar',
+    width: 300,
+    data: data,
+    options: {
+      responsive: false,
+      scales: {
+        yAxes: [{
+          xAxes: [{
+            ticks: {
+              stepSize: 1,
+              beginAtZero: true,
+            }
+          }]
+        }]
+      }
+    }
+  });
+}
 
 //event listener for an image clicked
 imgContain.addEventListener('click', handleImgClick);
