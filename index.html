@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>BusMall</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
   </head>
+
   <body>
     <header>
       <h1>BusMall Catalog Market Research</h1>
     </header>
       <section id='info'>
-        <p>The goal of this exercise is to gauge user preferences on a variety of products for a new BusMall Catalog. We are conducting market research through voluntary participation in user focus groups.</p>
+        <p>The goal of this exercise is to gauge your preferences on a variety of products for a new BusMall Catalog. We are conducting market research through voluntary participation in user focus groups.</p>
+        <h1>Instructions:</h1>
+          <li>You will be shown 3 products at a time. You must choose 1 product you are most likely to purchase.</li>
+          <li>Please answer by clicking on the image of the product.</li>
+          <li>After 25 rounds, your results will be displayed.</li>
+        <button type="button" id="startButton">Let's get Started!</button>
+        <button type="button" id="clearStorage">Clear Research Data</button>
       </section>
-      <section id='images_displayed'>
-        <img id='left'></img>
-        <img id='center'></img>
-        <img id='right'></img>
+      <section id='imgContain' class="hideChart">
+        <h1>Which product are you most likely to buy today?</h1>
+        <div class="row">
+        <img id='left' src=""></img>
+        <img id='center' src=""></img>
+        <img id='right' src=""></img>
+        </div>
       </section>
-      <section>
-        <ul id='results'>
-        </ul>
+      <section id='results' class="hideChart">
+        <h1>Results</h1>
+        <ul id='myList'></ul>
+        <p>Thank you for taking the time to participate in our market research study. We really appreciate you!</p>
       </section>
     <script src="app.js" type="text/javascript"></script>
   </body>
