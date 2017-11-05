@@ -18,6 +18,6 @@ As a focus group participant, I want to be able to see the image names and know 
 
 ###Step by step instructions:
 
-Each image will be stored in an index. A random number function will be used to access the index of images. There will need to be an additional variable counting up to the 25 question total. This will require a for loop going though the object until the index reaches 25 questions.
+Each image will be stored in an index. A random number function will be used to access the index of images. There will need to be an additional variable counting up to the 25 question total. This will require a for loop going through the object until the index reaches 25 questions.
 
 The three images to be displayed at one given time will need to be stored within a single html div. An additional if statement will be used to account for the user clicking the image. Each image selected will be stored in an array for result population following the objects completion.
